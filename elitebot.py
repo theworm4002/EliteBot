@@ -2,7 +2,7 @@
 
 import ssl
 import socket
-from EliteBotConfg import *
+from EliteBotConfig import *
  
 ircsock = socket.socket(socket.AF_INET, socket.SOCK_STREAM) 
 
@@ -50,10 +50,9 @@ while True:
         pongis = ircmsg.split(' ', 1)[1] 
         SendIRC(f'PONG {pongis}')
         
-    if ircmsg.find(f'443' {BNICK} :') != -1:
+    if ircmsg.find(f' 433 * {BNICK} :') != -1:
         SendIRC(f'NICK {BALT}')
         
     if ircmsg.find('say hi to') != -1:
         Nick2TellFkOff = ircmsg.split('say hi to ')[1]
         SendMsg(f'No! Fuck {Nick2TellFkOff}')
-

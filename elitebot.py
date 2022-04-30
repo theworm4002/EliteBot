@@ -44,7 +44,9 @@ while True:
     print(line)
 
     if ircmsg.find(f' 001 {BNICK} :') != -1:
-        SendIRC(f'JOIN {BHOME}')
+       SendIRC(f'JOIN {BHOME}')
+    elif ircmsg.find(f' 001 {BALT} :') != -1:
+       SendIRC(f'JOIN {BHOME}')
 
     if ircmsg.find('PING') != -1:
         pongis = ircmsg.split(' ', 1)[1] 

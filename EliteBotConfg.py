@@ -2,6 +2,7 @@
 BNICK   = 'EliteBotDaddy'
 BIDENT  = 'EliteBot'
 BNAME   = 'EliteBot'
+BALT    = 'EliteBot-'
 
 BHOME   = '#EliteBot'
 BADMIN  = 'Admin-nick'

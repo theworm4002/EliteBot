@@ -17,7 +17,6 @@ ircsock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 if UseSSL:
     ircsock = ssl.wrap_socket(ircsock)
 ircsock.settimeout(240)
-connected = False 
 
 print(f'Connecting to {BSERVER} :{BPORT}')
  

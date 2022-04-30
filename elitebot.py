@@ -1,13 +1,5 @@
 #!/usr/bin/python3
-
-BNICK   = 'EliteBot'
-BIDENT  = 'EliteBot'
-BNAME   = 'EliteBot'
-BSERVER = 'irc.address.org'
-BPORT   =  +6697
-BHOME   = '#EliteBot'
-BADMIN  = 'Admin-nick'
-
+from config import *
 import socket
 import sys
 import ssl

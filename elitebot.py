@@ -50,7 +50,9 @@ while True:
         pongis = ircmsg.split(' ', 1)[1] 
         SendIRC(f'PONG {pongis}')
         
-    
+    if ircmsg.find(f'443' {BNICK} :') != -1:
+        SendIRC(f'NICK {BALT}')
+        
     if ircmsg.find('say hi to') != -1:
         Nick2TellFkOff = ircmsg.split('say hi to ')[1]
         SendMsg(f'No! Fuck {Nick2TellFkOff}')

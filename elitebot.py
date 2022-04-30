@@ -72,6 +72,6 @@ while True:
           ap_encoded = str(base64.b64encode(authpass.encode('UTF-8')), 'UTF-8')
           SendIRC('AUTHENTICATE ' + ap_encoded)
 
-    elif ircmsg.find('SASL authentication successful') != -1:
+    elif ircmsg.find(f' 903 {BNICK} :') != -1:
        print('Sending CAP END command.')
        SendIRC('CAP END')

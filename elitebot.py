@@ -4,17 +4,16 @@ BNICK   = 'EliteBot'
 BIDENT  = 'EliteBot'
 BNAME   = 'EliteBot'
 BSERVER = 'irc.address.org'
-BPORT   = 6697
+BPORT   =  +6697
 BHOME   = '#EliteBot'
 BADMIN  = 'Admin-nick'
-UseSSL  = True
 
 import socket
 import sys
 import ssl
  
 ircsock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-if UseSSL:
+if BPORT[0] == '+':
     ircsock = ssl.wrap_socket(ircsock)
 ircsock.settimeout(240)
 

@@ -31,4 +31,4 @@ while True:
    if text.find('PING') != -1:
       pongis = text.split(':')[1]
       ircsock.send(bytes(f'PONG {pongis}\r\n','utf-8'))
-      ircsock.send(bytes(f'JOIN {BHOME}\r\n','utf-'))
+      ircsock.send(bytes(f'JOIN {BHOME}\r\n','utf8'))

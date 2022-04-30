@@ -2,7 +2,7 @@
 
 import ssl
 import socket
-import base64 # will use later for sasl
+import base64
 import random
 from EliteBotConfig import *
  
@@ -64,7 +64,7 @@ while True:
         SendMsg(f'No! Fuck {Nick2TellFkOff}.')
         
     elif ircmsg.find('ACK :sasl') != -1:
-       print('Authenticating with SASL PLAIN.') # Request PLAIN Auth.
+       print('Authenticating with SASL PLAIN.')
        SendIRC('AUTHENTICATE PLAIN')
 
     elif ircmsg.find('AUTHENTICATE +') != -1:

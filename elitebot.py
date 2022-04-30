@@ -25,7 +25,7 @@ irc.send(bytes(f'USER {botident} 0 * :{botname}\r\n','utf-8'))
 
 while True:
    recvText = irc.recv(2048)
-   text = recvText.decode('utf-8')
+   text = recvText.decode('utf-8') 
    line = text.split('\r\n')
    print(text)
    if text.find('PING') != -1:

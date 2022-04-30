@@ -17,14 +17,16 @@ else:
 
 ircsock.settimeout(240)
 
-print(f'Connecting to {BSERVER} :{BPORT}')
-ircsock.connect_ex((BSERVER, BPORT))
-
 def SendIRC(msg):
     if msg != '': ircsock.send(bytes(f'{msg}\r\n','utf-8'))
 
-def SendMsg(msg, target=BHOME): # Sends messages to the target.
+def SendMsg(msg, target=BHOME):
     SendIRC("PRIVMSG "+ target +" :"+ msg)
+    
+print(f'Connecting to {BSERVER} :{BPORT}')
+ircsock.connect_ex((BSERVER, BPORT))
+if UseSASL:
+   SendIRC('CAP REQ :sasl')
 
 def decode(bytes):
     try: text = bytes.decode('utf-8')
@@ -43,7 +45,8 @@ while True:
     recvText = ircsock.recv(2048)
     ircmsg = decode(recvText)
     line = ircmsg.strip('\n\r')
-    print(line)
+    linx = line.replace(':','')
+    print(linx)
 
     if ircmsg.find(f' 001 {BNICK} :') != -1:
        SendIRC(f'JOIN {BHOME}')
@@ -59,3 +62,16 @@ while True:
     elif ircmsg.find('say hi to') != -1:
         Nick2TellFkOff = ircmsg.split('say hi to ')[1]
         SendMsg(f'No! Fuck {Nick2TellFkOff}.')
+        
+    elif ircmsg.find('ACK :sasl') != -1:
+       print('Authenticating with SASL PLAIN.') # Request PLAIN Auth.
+       SendIRC('AUTHENTICATE PLAIN')
+
+    elif ircmsg.find('AUTHENTICATE +') != -1:
+          authpass = SANICK + '\x00' + SANICK + '\x00' + SAPASS
+          ap_encoded = str(base64.b64encode(authpass.encode('UTF-8')), 'UTF-8')
+          SendIRC('AUTHENTICATE ' + ap_encoded)
+
+    elif ircmsg.find('SASL authentication successful') != -1:
+       print('Sending CAP END command.')
+       SendIRC('CAP END')

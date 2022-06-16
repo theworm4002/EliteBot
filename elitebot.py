@@ -5,7 +5,7 @@ import socket
 import base64
 import random
 from EliteBotConfig import *
- 
+
 ircsock = socket.socket(socket.AF_INET, socket.SOCK_STREAM) 
 
 if str(BPORT)[:1] == '+':
@@ -74,4 +74,4 @@ while True:
 
     elif ircmsg.find(f' 903 {BNICK} :') != -1:
        print('Sending CAP END command.')
-       SendIRC('CAP END')
+       SendIRC('CAP END') 

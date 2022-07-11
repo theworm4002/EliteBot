@@ -1,21 +1,6 @@
 #!/usr/bin/python3
  
-# Bot Settings
-BNICK   = 'EliteBot'
-BIDENT  = 'EliteBot'
-BNAME   = 'EliteBot'
-BALT    = 'EliteBot-'
-BHOME   = '#EliteBot'
-
-# Connection Settings
-BPORT   =  '+6697'
-BSERVER = 'irc.technet.chat'
- 
-# SASL Configuration.
-UseSASL = True
-SANICK  = 'EliteBot'
-SAPASS  = 'password'
- 
+from config import *
 import ssl
 import socket
 import base64

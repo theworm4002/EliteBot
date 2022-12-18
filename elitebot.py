@@ -54,10 +54,10 @@ while True:
          pongis = ircmsg.split(' ', 1)[1]
          SendIRC(f'PONG {pongis}')
             
-    if line.find('ACK :sasl') != -1 or ircmsg.find('ACK :sasl') != -1:
+    elif line.find('ACK :sasl') != -1 or ircmsg.find('ACK :sasl') != -1:
        SendIRC('AUTHENTICATE PLAIN')
  
-    if ircmsg.find('AUTHENTICATE +') != -1:
+    elif ircmsg.find('AUTHENTICATE +') != -1:
           authpass = SANICK + '\x00' + SANICK + '\x00' + SAPASS
           ap_encoded = str(base64.b64encode(authpass.encode('UTF-8')), 'UTF-8')
           SendIRC('AUTHENTICATE ' + ap_encoded)
@@ -65,5 +65,5 @@ while True:
     elif ircmsg.find(f' 903 {BNICK} :') != -1:
        SendIRC('CAP END')
     
-    if line.find(f' 001 {BNICK} :') != -1:
+    elif line.find(f' 001 {BNICK} :') != -1:
         SendIRC(f'JOIN {BHOME}')

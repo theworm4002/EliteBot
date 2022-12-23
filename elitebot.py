@@ -1,19 +1,10 @@
 #!/usr/bin/python3
 
+from config import *
 import ssl
 import socket
 import time
 import base64
-
-BNICK = 'elitebot'
-BIDENT = 'elitebot'
-BNAME = 'elitebot'
-BSERVER = 'irc.example.net'
-BPORT = '+6697'
-
-SANICK = 'username'
-SAPASS = 'password'
-UseSASL = False
 
 ircsock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 connected = False

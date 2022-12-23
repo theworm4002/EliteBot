@@ -4,13 +4,13 @@ BNICK   = 'EliteBot'
 BIDENT  = 'EliteBot'
 BNAME   = 'EliteBot'
 BALT    = 'EliteBot-'
-BHOME   = '#technet'
+BHOME   = '#channel'
 
 # Connection Settings
-BSERVER = 'irc.technet.chat'
+BSERVER = 'irc.example.net'
 BPORT   = '+6697' 
 
 # SASL Configuration.
 UseSASL = False
-SANICK  = 'EliteBot'
+SANICK  = 'username'
 SAPASS  = 'password'

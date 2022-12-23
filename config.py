@@ -1,3 +1,4 @@
+# EliteBot
 # Bot Settings
 
 BNICK   = 'EliteBot'

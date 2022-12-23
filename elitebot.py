@@ -34,7 +34,11 @@ def connect():
     global BPORT
     
     ircsock.settimeout(240)
-    
+    if SSLCERT: 
+        ssl.CERT_REQUIRED = True
+    else:
+        ssl.CERT_REQUIRED = False
+        
     if str(BPORT)[:1] == '+':
         ircsock = ssl.wrap_socket(ircsock)
         BPORT = int(BPORT[1:])

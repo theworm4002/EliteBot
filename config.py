@@ -10,6 +10,7 @@ BHOME   = '#channel'
 # Connection Settings
 BSERVER = 'irc.example.net'
 BPORT   = '+6697' 
+SSLCERT = True
 
 # SASL Configuration.
 UseSASL = False

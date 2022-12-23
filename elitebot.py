@@ -45,7 +45,7 @@ def connect():
     else:
         BPORT = int(BPORT)
     
-    ircsock.connect((BSERVER, BPORT))
+    ircsock.connect_ex((BSERVER, BPORT))
     ircsend(f'NICK {BNICK}')
     ircsend(f'USER {BIDENT} * * :{BNAME}')
     if UseSASL:

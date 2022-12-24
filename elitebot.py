@@ -5,6 +5,8 @@ import ssl
 import socket
 import time
 import base64
+import os
+from os import path
 
 ircsock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 connected = False
@@ -32,19 +34,38 @@ def connect():
     global BPORT
     
     ircsock.settimeout(240)
-    
+    if SSLCERT: 
+        ssl.CERT_REQUIRED = True
+    else:
+        ssl.CERT_REQUIRED = False
+        
     if str(BPORT)[:1] == '+':
         ircsock = ssl.wrap_socket(ircsock)
         BPORT = int(BPORT[1:])
     else:
         BPORT = int(BPORT)
     
-    ircsock.connect((BSERVER, BPORT))
+    ircsock.connect_ex((BSERVER, BPORT))
     ircsend(f'NICK {BNICK}')
     ircsend(f'USER {BIDENT} * * :{BNAME}')
     if UseSASL:
         ircsend('CAP REQ :sasl')
     
+def save_channel(channel):
+    with open('channels.txt', 'a') as f:
+        f.write(channel + '\n')
+        
+def join_saved_channels():
+    if not path.exists('channels.txt'):
+        with open('channels.txt', 'w') as f:
+            pass  # create the file if it does not exist
+    else:
+        with open('channels.txt', 'r') as f:
+            channels = f.readlines()
+            for channel in channels:
+                ircsend(f'JOIN {channel.strip()}')
+                print(f'JOIN {channel.strip()}')
+            
 def main():
     global connected
     if not connected:
@@ -75,12 +96,13 @@ def main():
         if ircmsg.find(f'INVITE {BNICK} :') != -1:
             channel = line.split(' ')[3]
             ircsend(f'JOIN {channel}')
+            save_channel(channel)
 			
         for line in queued_lines:
             time.sleep(5)
             ircsock.send(bytes(f'{line}\r\n','UTF-8'))
         queued_lines = []
 		
-		if ircmsg.find(f'PRIVMSG') != -1:
-		    text = line.split(' ')[3]
+        if ircmsg.find(f' 001 {BNICK} :') != -1:
+            join_saved_channels()
 main()

@@ -74,7 +74,7 @@ BNAME = 'elitebot'
 # If you set this to True, you will also need to provide a SASL username and
 # password in the SANICK and SAPASS variables, respectively.
 ##
-UseSASL = True
+UseSASL = False
 
 # Use SSL/TLS with certificate verification
 #
@@ -99,11 +99,11 @@ SSLCERT = True
 #   'mybot'
 #   'bottymcbotface'
 ##
-SANICK = 'elitebot'
+SANICK = 'username'
 
 # SASL password
 #
 # This should be the SASL password that you want to use for SASL authentication.
 # Only needed if UseSASL is True.
 ##
-SAPASS = 'elite//789//'
+SAPASS = 'password'

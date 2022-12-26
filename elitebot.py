@@ -65,18 +65,18 @@ def join_saved_channels():
             for channel in channels:
                 ircsend(f'JOIN {channel.strip()}')
                 print(f'JOIN {channel.strip()}')
-            
+
 def main():
     global connected
     if not connected:
         connect()
         connected = True
-    
+
     while connected:
         recvText = ircsock.recv(2048)
         ircmsg = decode(recvText)
         line = ircmsg.strip('\n\r')
-        print(ircmsg)
+        print(line)
         
         queued_lines = []
         if ircmsg.find('PING') != -1:

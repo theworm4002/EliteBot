@@ -14,7 +14,7 @@
 # Examples:
 #   'irc.example.com'
 ##
-BSERVER = 'irc.example.net'
+BSERVER = 'irc.technet.chat'
 
 # IRC server port number
 #
@@ -110,3 +110,5 @@ SAPASS = 'password'
 
 # True = pass, False = cert
 SASLAUTH = True 
+
+SASLCERT = '/home/someone/elitebot/ssl.pem'

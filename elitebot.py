@@ -5,11 +5,26 @@ import ssl
 import socket
 import time
 import base64
+import logging
 import os
 from os import path
 
 ircsock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 connected = False
+
+# Set up logging to a file
+logging.basicConfig(level=logging.DEBUG,
+                    filename='irc.log',
+                    filemode='w',
+                    format='%(asctime)s - %(levelname)s - %(message)s')
+
+# Set up logging to the console
+console = logging.StreamHandler()
+console.setLevel(logging.INFO)
+formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
+console.setFormatter(formatter)
+logging.getLogger('').addHandler(console)
+
 
 def decode(bytes):
     try: 
@@ -76,6 +91,7 @@ def main():
         recvText = ircsock.recv(2048)
         ircmsg = decode(recvText)
         line = ircmsg.strip('\n\r')
+        logging.info(ircmsg)
         print(line)
         
         queued_lines = []
@@ -106,4 +122,8 @@ def main():
 		
         if ircmsg.find(f' 001 {BNICK} :') != -1:
             join_saved_channels()
+        
+        if ircmsg.find(f':!moo') != -1:
+            ircsend(f'PRIVMSG #ct :moo')
+        
 main()

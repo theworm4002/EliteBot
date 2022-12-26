@@ -27,7 +27,7 @@ BSERVER = 'irc.technet.chat'
 #   6667 (plain text)
 #   +6697 (SSL/TLS)
 ##
-BPORT = 6667
+BPORT = '+6697'
 
 # Desired nickname for the bot
 #
@@ -38,7 +38,7 @@ BPORT = 6667
 #   'MyBot'
 #   'BottyMcBotface'
 ##
-BNICK = 'MyBotNick'
+BNICK = 'elitebot'
 
 # Desired ident for the bot
 #
@@ -49,7 +49,7 @@ BNICK = 'MyBotNick'
 #   'mybot'
 #   'bot'
 ##
-BIDENT = 'mybot'
+BIDENT = 'elitebot'
 
 # Desired name for the bot
 #
@@ -60,7 +60,7 @@ BIDENT = 'mybot'
 #   'My Bot'
 #   'The Bot'
 ##
-BNAME = 'My Bot'
+BNAME = 'elitebot'
 
 # Use SASL authentication
 #
@@ -74,7 +74,7 @@ BNAME = 'My Bot'
 # If you set this to True, you will also need to provide a SASL username and
 # password in the SANICK and SAPASS variables, respectively.
 ##
-UseSASL = False
+UseSASL = True
 
 # Use SSL/TLS with certificate verification
 #
@@ -99,11 +99,11 @@ SSLCERT = True
 #   'mybot'
 #   'bottymcbotface'
 ##
-SANICK = 'username'
+SANICK = 'elitebot'
 
 # SASL password
 #
 # This should be the SASL password that you want to use for SASL authentication.
 # Only needed if UseSASL is True.
 ##
-SAPASS = 'password'
+SAPASS = 'elite//789//'

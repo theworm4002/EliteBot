@@ -81,17 +81,23 @@ def main():
         if ircmsg.find('PING') != -1:
             nospoof = ircmsg.split(' ', 1)[1]
             ircsend("PONG " + nospoof)
-        
-        if line.find('ACK :sasl') != -1 or ircmsg.find('ACK :sasl') != -1:
-            ircsend('AUTHENTICATE PLAIN')
+        if SASLAUTH:
+            if line.find('ACK :sasl') != -1 or ircmsg.find('ACK :sasl') != -1:
+                ircsend('AUTHENTICATE PLAIN')
          
-        elif ircmsg.find('AUTHENTICATE +') != -1:
-            authpass = SANICK + '\x00' + SANICK + '\x00' + SAPASS
-            ap_encoded = str(base64.b64encode(authpass.encode('UTF-8')), 'UTF-8')
-            ircsend('AUTHENTICATE ' + ap_encoded)
-          
-        elif ircmsg.find(f' 903 {BNICK} :') != -1:
-            ircsend('CAP END')
+            elif ircmsg.find('AUTHENTICATE +') != -1:
+                authpass = SANICK + '\x00' + SANICK + '\x00' + SAPASS
+                ap_encoded = str(base64.b64encode(authpass.encode('UTF-8')), 'UTF-8')
+                ircsend('AUTHENTICATE ' + ap_encoded)
+        else:
+            if ircmsg.find('AUTHENTICATE CERTIFICATE') != -1:
+                with open(CERT_FILE, 'rb') as f:
+                    cert_data = f.read()
+                cert_encoded = str(base64.b64encode(cert_data), 'UTF-8')
+                ircsend('AUTHENTICATE ' + cert_encoded)
+
+            elif ircmsg.find(f' 903 {BNICK} :') != -1:
+                ircsend('CAP END')
 			
         if ircmsg.find(f'INVITE {BNICK} :') != -1:
             channel = line.split(' ')[3]

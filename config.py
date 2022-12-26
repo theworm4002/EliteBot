@@ -107,8 +107,3 @@ SANICK = 'username'
 # Only needed if UseSASL is True.
 ##
 SAPASS = 'password'
-
-# True = pass, False = cert
-SASLAUTH = True 
-
-SASLCERT = '/home/someone/elitebot/ssl.pem'

@@ -1,1 +1,1 @@
-nohup python3 elitebot.py
+nohup python3 elitebot.py &

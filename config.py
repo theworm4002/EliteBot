@@ -14,7 +14,7 @@
 # Examples:
 #   'irc.example.com'
 ##
-BSERVER = 'irc.technet.chat'
+BSERVER = 'irc.example.net'
 
 # IRC server port number
 #
@@ -27,7 +27,7 @@ BSERVER = 'irc.technet.chat'
 #   6667 (plain text)
 #   +6697 (SSL/TLS)
 ##
-BPORT = '+6697'
+BPORT = +6697
 
 # Desired nickname for the bot
 #

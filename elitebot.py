@@ -91,7 +91,7 @@ def main():
         recvText = ircsock.recv(2048)
         ircmsg = decode(recvText)
         line = ircmsg.strip('\n\r')
-        logging.info(ircmsg)
+        logging.info(line)
         print(line)
         
         queued_lines = []

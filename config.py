@@ -27,7 +27,7 @@ BSERVER = 'irc.example.net'
 #   6667 (plain text)
 #   +6697 (SSL/TLS)
 ##
-BPORT = +6697
+BPORT = '+6697'
 
 # Desired nickname for the bot
 #

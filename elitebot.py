@@ -5,11 +5,26 @@ import ssl
 import socket
 import time
 import base64
+import logging
 import os
 from os import path
 
 ircsock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 connected = False
+
+# Set up logging to a file
+logging.basicConfig(level=logging.DEBUG,
+                    filename='irc.log',
+                    filemode='w',
+                    format='%(asctime)s - %(levelname)s - %(message)s')
+
+# Set up logging to the console
+console = logging.StreamHandler()
+console.setLevel(logging.INFO)
+formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
+console.setFormatter(formatter)
+logging.getLogger('').addHandler(console)
+
 
 def decode(bytes):
     try: 
@@ -65,39 +80,35 @@ def join_saved_channels():
             for channel in channels:
                 ircsend(f'JOIN {channel.strip()}')
                 print(f'JOIN {channel.strip()}')
-            
+
 def main():
     global connected
     if not connected:
         connect()
         connected = True
-    
+
     while connected:
         recvText = ircsock.recv(2048)
         ircmsg = decode(recvText)
         line = ircmsg.strip('\n\r')
-        print(ircmsg)
+        logging.info(line)
+        print(line)
+        
         queued_lines = []
         if ircmsg.find('PING') != -1:
             nospoof = ircmsg.split(' ', 1)[1]
             ircsend("PONG " + nospoof)
-        if SASLAUTH:
-            if line.find('ACK :sasl') != -1 or ircmsg.find('ACK :sasl') != -1:
-                ircsend('AUTHENTICATE PLAIN')
-         
-            elif ircmsg.find('AUTHENTICATE +') != -1:
-                authpass = SANICK + '\x00' + SANICK + '\x00' + SAPASS
-                ap_encoded = str(base64.b64encode(authpass.encode('UTF-8')), 'UTF-8')
-                ircsend('AUTHENTICATE ' + ap_encoded)
-        else:
-            if ircmsg.find('AUTHENTICATE CERTIFICATE') != -1:
-                with open(CERT_FILE, 'rb') as f:
-                    cert_data = f.read()
-                cert_encoded = str(base64.b64encode(cert_data), 'UTF-8')
-                ircsend('AUTHENTICATE ' + cert_encoded)
 
-            elif ircmsg.find(f' 903 {BNICK} :') != -1:
-                ircsend('CAP END')
+        if line.find('ACK :sasl') != -1 or ircmsg.find('ACK :sasl') != -1:
+            ircsend('AUTHENTICATE PLAIN')
+         
+        elif ircmsg.find('AUTHENTICATE +') != -1:
+            authpass = SANICK + '\x00' + SANICK + '\x00' + SAPASS
+            ap_encoded = str(base64.b64encode(authpass.encode('UTF-8')), 'UTF-8')
+            ircsend('AUTHENTICATE ' + ap_encoded)
+
+        elif ircmsg.find(f' 903 {BNICK} :') != -1:
+            ircsend('CAP END')
 			
         if ircmsg.find(f'INVITE {BNICK} :') != -1:
             channel = line.split(' ')[3]
@@ -111,4 +122,8 @@ def main():
 		
         if ircmsg.find(f' 001 {BNICK} :') != -1:
             join_saved_channels()
+        
+        if ircmsg.find(f':!moo') != -1:
+            ircsend(f'PRIVMSG #ct :moo')
+        
 main()

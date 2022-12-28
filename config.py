@@ -27,7 +27,7 @@ BSERVER = 'irc.example.net'
 #   6667 (plain text)
 #   +6697 (SSL/TLS)
 ##
-BPORT = 6667
+BPORT = '+6697'
 
 # Desired nickname for the bot
 #
@@ -38,7 +38,7 @@ BPORT = 6667
 #   'MyBot'
 #   'BottyMcBotface'
 ##
-BNICK = 'MyBotNick'
+BNICK = 'elitebot'
 
 # Desired ident for the bot
 #
@@ -49,7 +49,7 @@ BNICK = 'MyBotNick'
 #   'mybot'
 #   'bot'
 ##
-BIDENT = 'mybot'
+BIDENT = 'elitebot'
 
 # Desired name for the bot
 #
@@ -60,7 +60,7 @@ BIDENT = 'mybot'
 #   'My Bot'
 #   'The Bot'
 ##
-BNAME = 'My Bot'
+BNAME = 'elitebot'
 
 # Use SASL authentication
 #
@@ -107,6 +107,3 @@ SANICK = 'username'
 # Only needed if UseSASL is True.
 ##
 SAPASS = 'password'
-
-# True = pass, False = cert
-SASLAUTH = True 

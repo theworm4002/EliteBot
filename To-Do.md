@@ -1,1 +1,1 @@
-Add SASL CertFP function.
+- Add SASL CertFP function.

@@ -1,2 +1,0 @@
-- Add SASL CertFP function.
-- Add Admin identify and control.

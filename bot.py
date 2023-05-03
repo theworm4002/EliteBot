@@ -122,9 +122,9 @@ def main(config):
                 ircsend(f'MODE elitebot +x')
                 join_saved_channels()
 
-            if ircmsg.find(f':!moo') != -1:
+            if ircmsg.find(f':!ping') != -1:
                channel = ircmsg.split(' ')[2]
-               ircsend(f'PRIVMSG {channel} :moo')
+               ircsend(f'PRIVMSG {channel} :pong!')
         except Exception as e:
             logging.exception("Unexpected error occurred: %s", e)
             connected = False

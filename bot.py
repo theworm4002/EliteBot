@@ -78,7 +78,11 @@ def join_saved_channels():
                 ircsend(f'JOIN {channel.strip()}')
                 print(f'JOIN {channel.strip()}')
 
-
+def save_channel(channel):
+    logging.debug("Saving channel: %s", channel)
+    with open('channels.txt', 'a') as f:
+        f.write(f'{channel}\n')
+        
 def main(config):
     global connected
 
@@ -100,12 +104,12 @@ def main(config):
                 continue
 
             ircmsg = decode(recvText)
-            line = ircmsg.strip('\n\r')
+            line = ircmsg.strip('\r\n')
             logging.info(line)
             print(line)
 
             if ircmsg.startswith('PING :') or (ircmsg.find('PING :') != -1 and ircmsg.lower().find('must') == -1):
-                nospoof = ircmsg.split('ING :', 1)[1]
+                nospoof = ircmsg.split('PING :', 1)[1]
                 if nospoof.find(' ') != -1: nospoof = nospoof.split()[0]
                 ircsend(f'PONG :{nospoof}')
 
@@ -119,7 +123,8 @@ def main(config):
                 join_saved_channels()
 
             if ircmsg.find(f':!moo') != -1:
-                ircsend(f'PRIVMSG #ct :moo')
+               channel = ircmsg.split(' ')[2]
+               ircsend(f'PRIVMSG {channel} :moo')
         except Exception as e:
             logging.exception("Unexpected error occurred: %s", e)
             connected = False

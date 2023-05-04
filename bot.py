@@ -10,13 +10,13 @@ import os
 from os import path
 import traceback
 
+
 def load_config(config_file):
     logging.debug("Loading configuration from: %s", config_file)
     with open(config_file, 'r') as file:
         config = json.load(file)
     return config
 
-ircsock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 connected = False
 
 logging.basicConfig(level=logging.DEBUG,
@@ -50,6 +50,7 @@ def connect(config):
     global ircsock
     global connected
 
+    ircsock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     ircsock.settimeout(240)
 
     if str(config['BPORT'])[:1] == '+':
@@ -65,6 +66,8 @@ def connect(config):
     ircsock.connect_ex((config['BSERVER'], port))
     ircsend(f'NICK {config["BNICK"]}')
     ircsend(f'USER {config["BIDENT"]} * * :{config["BNAME"]}')
+    if config['UseSASL']:
+       ircsend('CAP REQ :sasl')
 
 def join_saved_channels():
     logging.debug("Joining saved channels")
@@ -106,12 +109,28 @@ def main(config):
             ircmsg = decode(recvText)
             line = ircmsg.strip('\r\n')
             logging.info(line)
-            print(line)
 
             if ircmsg.startswith('PING :') or (ircmsg.find('PING :') != -1 and ircmsg.lower().find('must') == -1):
                 nospoof = ircmsg.split('PING :', 1)[1]
                 if nospoof.find(' ') != -1: nospoof = nospoof.split()[0]
                 ircsend(f'PONG :{nospoof}')
+                
+            if line.find('ACK :sasl') != -1 or ircmsg.find('ACK :sasl') != -1:
+               ircsend('AUTHENTICATE PLAIN')
+         
+            elif ircmsg.find('AUTHENTICATE +') != -1:
+               authpass = config["SANICK"] + '\x00' + config["SANICK"] + '\x00' + config["SAPASS"]
+               ap_encoded = str(base64.b64encode(authpass.encode('UTF-8')), 'UTF-8')
+               ircsend('AUTHENTICATE ' + ap_encoded)
+
+            elif ircmsg.find(f' 903 {config["BNICK"]} :') != -1:
+               ircsend('CAP END')
+
+            # Add this condition to handle the !quit command
+            if ircmsg.find(f':!quit') != -1:
+                ircsend(f'QUIT :Goodbye!')
+                connected = False
+                break
 
             if ircmsg.find(f'INVITE {config["BNICK"]} :') != -1:
                 channel = line.split(' ')[3]
@@ -119,12 +138,12 @@ def main(config):
                 save_channel(channel)
 
             if ircmsg.find(f' 001 {config["BNICK"]} :') != -1:
-                ircsend(f'MODE elitebot +x')
                 join_saved_channels()
 
-            if ircmsg.find(f':!ping') != -1:
-               channel = ircmsg.split(' ')[2]
-               ircsend(f'PRIVMSG {channel} :pong!')
+            if ircmsg.find(f':!moo') != -1:
+                channel = ircmsg.split(' ')[2]
+                ircsend(f'PRIVMSG {channel} :moo')
+
         except Exception as e:
             logging.exception("Unexpected error occurred: %s", e)
             connected = False
@@ -134,3 +153,5 @@ def main(config):
         except Exception as e:
             logging.exception("Unexpected error occurred: %s", e)
             connected = False
+
+    ircsock.close()

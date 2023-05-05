@@ -110,12 +110,12 @@ def main(config):
                 connected = True
             except Exception as e:
                 logging.exception("Error connecting to server: %s", e)
-                time.sleep(60)  # Wait 60 seconds before retrying the connection
+                time.sleep(60)
                 continue
 
         try:
             recvText = ircsock.recv(2048)
-            if not recvText:  # If an empty message is received, the connection is closed
+            if not recvText:
                 logging.warning("Connection closed by server")
                 connected = False
                 continue
@@ -140,7 +140,6 @@ def main(config):
             elif ircmsg.find(f' 903 {config["BNICK"]} :') != -1:
                ircsend('CAP END')
 
-            # Add this condition to handle the !quit command
             if ircmsg.find(f':!quit') != -1:
                 ircsend(f'QUIT :Goodbye!')
                 connected = False

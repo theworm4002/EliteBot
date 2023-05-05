@@ -6,9 +6,7 @@ import socket
 import time
 import base64
 import logging
-import os
 from os import path
-import traceback
 
 
 def load_config(config_file):
@@ -71,20 +69,31 @@ def connect(config):
 
 def join_saved_channels():
     logging.debug("Joining saved channels")
-    if not path.exists('channels.txt'):
-        with open('channels.txt', 'w') as f:
-            pass  # create the file if it does not exist
-    else:
-        with open('channels.txt', 'r') as f:
-            channels = f.readlines()
-            for channel in channels:
-                ircsend(f'JOIN {channel.strip()}')
-                print(f'JOIN {channel.strip()}')
+    
+    channels = load_channels()
+    
+    for channel in channels:
+        ircsend(f'JOIN {channel}')
+        print(f'JOIN {channel}')
 
 def save_channel(channel):
     logging.debug("Saving channel: %s", channel)
-    with open('channels.txt', 'a') as f:
-        f.write(f'{channel}\n')
+    
+    channels = load_channels()
+    
+    if channel not in channels:
+        channels.append(channel)
+        with open('channels.json', 'w') as f:
+            json.dump(channels, f)
+
+def load_channels():
+    if not path.exists('channels.json'):
+        with open('channels.json', 'w') as f:
+            json.dump([], f)
+        return []
+
+    with open('channels.json', 'r') as f:
+        return json.load(f)
         
 def main(config):
     global connected

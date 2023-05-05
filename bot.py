@@ -9,7 +9,6 @@ import base64
 import logging
 from os import path
 
-
 def load_config(config_file):
     logging.debug("Loading configuration from: %s", config_file)
     with open(config_file, 'r') as file:

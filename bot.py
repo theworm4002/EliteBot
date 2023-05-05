@@ -81,10 +81,24 @@ def join_saved_channels():
 def save_channel(channel):
     logging.debug("Saving channel: %s", channel)
     
+    channel = channel.lstrip(':')  # Remove leading colon, if any
     channels = load_channels()
     
     if channel not in channels:
         channels.append(channel)
+        
+        os.makedirs("data", exist_ok=True)
+        with open('data/channels.json', 'w') as f:
+            json.dump(channels, f)
+
+def remove_channel(channel):
+    logging.debug("Removing channel: %s", channel)
+    
+    channel = channel.lstrip(':')  # Remove leading colon, if any
+    channels = load_channels()
+    
+    if channel in channels:
+        channels.remove(channel)
         
         os.makedirs("data", exist_ok=True)
         with open('data/channels.json', 'w') as f:
@@ -141,7 +155,6 @@ def main(config):
             elif ircmsg.find(f' 903 {config["BNICK"]} :') != -1:
                ircsend('CAP END')
 
-            # Add this condition to handle the !quit command
             if ircmsg.find(f':!quit') != -1:
                 ircsend(f'QUIT :Goodbye!')
                 connected = False
@@ -158,6 +171,16 @@ def main(config):
             if ircmsg.find(f':!moo') != -1:
                 channel = ircmsg.split(' ')[2]
                 ircsend(f'PRIVMSG {channel} :moo')
+
+            if ircmsg.find(f':!join') != -1:
+                channel = ircmsg.split(' ')[2]
+                ircsend(f'JOIN {channel}')
+                save_channel(channel)
+
+            if ircmsg.find(f':!part') != -1:
+                channel = ircmsg.split(' ')[2]
+                ircsend(f'PART {channel}')
+                remove_channel(channel)
 
         except Exception as e:
             logging.exception("Unexpected error occurred: %s", e)

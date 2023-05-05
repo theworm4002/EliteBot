@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 
 import json
+import os
 import ssl
 import socket
 import time
@@ -17,8 +18,9 @@ def load_config(config_file):
 
 connected = False
 
+os.makedirs("logs", exist_ok=True)
 logging.basicConfig(level=logging.DEBUG,
-                    filename='irc.log',
+                    filename='logs/elitebot.log',
                     filemode='w',
                     format='%(asctime)s - %(levelname)s - %(message)s')
 console = logging.StreamHandler()
@@ -83,16 +85,20 @@ def save_channel(channel):
     
     if channel not in channels:
         channels.append(channel)
-        with open('channels.json', 'w') as f:
+        
+        os.makedirs("data", exist_ok=True)
+        with open('data/channels.json', 'w') as f:
             json.dump(channels, f)
 
 def load_channels():
-    if not path.exists('channels.json'):
-        with open('channels.json', 'w') as f:
+    os.makedirs("data", exist_ok=True)
+
+    if not path.exists('data/channels.json'):
+        with open('data/channels.json', 'w') as f:
             json.dump([], f)
         return []
 
-    with open('channels.json', 'r') as f:
+    with open('data/channels.json', 'r') as f:
         return json.load(f)
         
 def main(config):

@@ -1,0 +1,68 @@
+2023-05-05 05:12:43,103 - DEBUG - Connecting to server: irc.rizon.net:6697
+2023-05-05 05:12:43,192 - INFO - :irc.defineya.com NOTICE * :*** Looking up your hostname...
+2023-05-05 05:12:43,193 - INFO - :irc.defineya.com NOTICE * :*** Checking Ident
+2023-05-05 05:12:43,194 - INFO - :irc.defineya.com NOTICE * :*** Found your hostname
+2023-05-05 05:12:43,202 - INFO - :irc.defineya.com NOTICE * :*** No Ident response
+2023-05-05 05:12:43,202 - INFO - PING :2880024323
+2023-05-05 05:12:43,202 - INFO - :irc.defineya.com CAP EliteBot ACK :sasl
+2023-05-05 05:12:43,429 - INFO - AUTHENTICATE +
+2023-05-05 05:12:43,648 - INFO - :irc.defineya.com 900 EliteBot EliteBot!EliteBot@EliteBot.io EliteBot :You are now logged in as EliteBot.
+2023-05-05 05:12:43,649 - INFO - :irc.defineya.com 903 EliteBot :SASL authentication successful
+2023-05-05 05:12:43,659 - INFO - :irc.defineya.com NOTICE EliteBot :*** Connected securely via TLSv1.3 TLS_AES_256_GCM_SHA384-256
+2023-05-05 05:12:43,659 - INFO - :irc.defineya.com NOTICE EliteBot :*** Your host is masked (EliteBot.io)
+2023-05-05 05:12:43,659 - INFO - :irc.defineya.com 001 EliteBot :Welcome to the Rizon Internet Relay Chat Network EliteBot
+2023-05-05 05:12:43,659 - DEBUG - Joining saved channels
+2023-05-05 05:12:43,660 - INFO - :irc.defineya.com 002 EliteBot :Your host is irc.defineya.com, running version plexus-4(hybrid-8.1.20)
+2023-05-05 05:12:43,660 - INFO - :irc.defineya.com 003 EliteBot :This server was created Nov 16 2021 at 15:08:21
+2023-05-05 05:12:43,660 - INFO - :irc.defineya.com 004 EliteBot irc.defineya.com plexus-4(hybrid-8.1.20) CDGNRSUWagilopqrswxyz BCIMNORSabcehiklmnopqstvz Iabehkloqv
+2023-05-05 05:12:43,661 - INFO - :irc.defineya.com 005 EliteBot CALLERID CASEMAPPING=rfc1459 DEAF=D KICKLEN=180 MODES=4 PREFIX=(qaohv)~&@%+ STATUSMSG=~&@%+ EXCEPTS=e INVEX=I NICKLEN=30 NETWORK=Rizon MAXLIST=beI:250 MAXTARGETS=4 :are supported by this server
+2023-05-05 05:12:43,661 - INFO - :irc.defineya.com 005 EliteBot CHANTYPES=# CHANLIMIT=#:250 CHANNELLEN=50 TOPICLEN=390 CHANMODES=beI,k,l,BCMNORScimnpstz NAMESX UHNAMES KNOCK WATCH=60 AWAYLEN=180 ELIST=CMNTU SAFELIST :are supported by this server
+2023-05-05 05:12:43,661 - INFO - :irc.defineya.com 251 EliteBot :There are 20 users and 8923 invisible on 20 servers
+2023-05-05 05:12:43,661 - INFO - :irc.defineya.com 252 EliteBot 46 :IRC Operators online
+2023-05-05 05:12:43,661 - INFO - :irc.defineya.com 254 EliteBot 8134 :channels formed
+2023-05-05 05:12:43,661 - INFO - :irc.defineya.com 255 EliteBot :I have 8943 clients and 20 servers
+2023-05-05 05:12:43,662 - INFO - :irc.defineya.com 265 EliteBot :Current local users: 8943  Max: 11502
+2023-05-05 05:12:43,662 - INFO - :irc.defineya.com 266 EliteBot :Current global users: 8943  Max: 11502
+2023-05-05 05:12:43,662 - INFO - :irc.defineya.com 375 EliteBot :- irc.defineya.com Message of the Day - 
+2023-05-05 05:12:43,662 - INFO - :irc.defineya.com 372 EliteBot :-          11oo                            
+2023-05-05 05:12:43,662 - INFO - :irc.defineya.com 372 EliteBot :- 
+2023-05-05 05:12:43,663 - INFO - :irc.defineya.com 372 EliteBot :- 88d888b. dP d888888b .d8888b. 88d888b. 
+2023-05-05 05:12:43,663 - INFO - :irc.defineya.com 372 EliteBot :- 88'  `88 88    .d8P' 88'  `88 88'  `88 
+2023-05-05 05:12:43,663 - INFO - :irc.defineya.com 372 EliteBot :- 1188       88  .Y8P    88.  .88 88    88 
+2023-05-05 05:12:43,663 - INFO - :irc.defineya.com 372 EliteBot :- 11dP       dP d888888P `88888P' dP    dP
+2023-05-05 05:12:43,663 - INFO - :irc.defineya.com 372 EliteBot :- 
+2023-05-05 05:12:43,663 - INFO - :irc.defineya.com 372 EliteBot :- Rizon Chat Network -- http://rizon.net
+2023-05-05 05:12:43,663 - INFO - :irc.defineya.com 372 EliteBot :- 
+2023-05-05 05:12:43,664 - INFO - :irc.defineya.com 372 EliteBot :- Listening on ports: 6660 - 6669, 7000. SSL: 6697, 9999
+2023-05-05 05:12:43,664 - INFO - :irc.defineya.com 372 EliteBot :- 
+2023-05-05 05:12:43,664 - INFO - :irc.defineya.com 372 EliteBot :- Rules:
+2023-05-05 05:12:43,664 - INFO - :irc.defineya.com 372 EliteBot :- o No spamming or flooding
+2023-05-05 05:12:43,664 - INFO - :irc.defineya.com 372 EliteBot :- o No clones or malicious bots
+2023-05-05 05:12:43,664 - INFO - :irc.defineya.com 372 EliteBot :- o No takeovers
+2023-05-05 05:12:43,664 - INFO - :irc.defineya.com 372 EliteBot :- o No distribution of child pornography
+2023-05-05 05:12:43,664 - INFO - :irc.defineya.com 372 EliteBot :- o Clients must respond to VERSION requests
+2023-05-05 05:12:43,664 - INFO - :irc.defineya.com 372 EliteBot :- o Rizon staff may disconnect clients for any or no reason
+2023-05-05 05:12:43,664 - INFO - :irc.defineya.com 372 EliteBot :- 
+2023-05-05 05:12:43,664 - INFO - :irc.defineya.com 372 EliteBot :- First steps:
+2023-05-05 05:12:43,664 - INFO - :irc.defineya.com 372 EliteBot :- o To register your nick: /msg NickServ HELP
+2023-05-05 05:12:43,664 - INFO - :irc.defineya.com 372 EliteBot :- o To register your channel: /msg ChanServ HELP
+2023-05-05 05:12:43,664 - INFO - :irc.defineya.com 372 EliteBot :- o To get a vHost: /msg HostServ HELP REQUEST
+2023-05-05 05:12:43,664 - INFO - :irc.defineya.com 372 EliteBot :- o For other help with Rizon: /join #help
+2023-05-05 05:12:43,664 - INFO - :irc.defineya.com 372 EliteBot :- 
+2023-05-05 05:12:43,664 - INFO - :irc.defineya.com 372 EliteBot :- Usage of this network is a privilege, not a right. Rizon is a
+2023-05-05 05:12:43,664 - INFO - :irc.defineya.com 372 EliteBot :- transit provider, therefore no person or entity involved with
+2023-05-05 05:12:43,664 - INFO - :irc.defineya.com 372 EliteBot :- *.rizon.net or irc.defineya.com takes any responsibility for
+2023-05-05 05:12:43,664 - INFO - :irc.defineya.com 372 EliteBot :- users' actions. Absolutely no warranty is expressed or implied.
+2023-05-05 05:12:43,664 - INFO - :irc.defineya.com 376 EliteBot :End of /MOTD command.
+2023-05-05 05:12:43,664 - INFO - :EliteBot!~EliteBot@EliteBot.io MODE EliteBot :+Si
+2023-05-05 05:12:43,868 - INFO - :MemoServ!service@rizon.net NOTICE EliteBot :You have 1 new memo.
+2023-05-05 05:12:43,868 - INFO - :MemoServ!service@rizon.net NOTICE EliteBot :Type /msg MemoServ READ LAST to read it.
+2023-05-05 05:12:43,869 - INFO - :EliteBot!~EliteBot@EliteBot.io MODE EliteBot :+r
+2023-05-05 05:12:43,940 - INFO - :py-ctcp!ctcp@ctcp-scanner.rizon.net PRIVMSG EliteBot :VERSION
+2023-05-05 05:13:14,902 - INFO - :ComputerTech!computerte@ComputerTech.Network INVITE EliteBot :#EliteBot
+2023-05-05 05:13:14,903 - DEBUG - Saving channel: :#EliteBot
+2023-05-05 05:13:14,912 - INFO - :EliteBot!~EliteBot@EliteBot.io JOIN :#EliteBot
+2023-05-05 05:13:14,913 - INFO - :irc.defineya.com 332 EliteBot #EliteBot :Welcome to #EliteBot || Website: https://elitebot.io || GitHub: https://github.com/EliteBot-official || latest version: 0.0.1
+2023-05-05 05:13:14,913 - INFO - :irc.defineya.com 333 EliteBot #EliteBot [Worm]!~sid466740@Im.not.a.good.host.if.I.dont.have.good.manners 1669938673
+2023-05-05 05:13:14,913 - INFO - :irc.defineya.com 353 EliteBot = #EliteBot :EliteBot &df Artea ~ComputerTech @Koragg Suntop &elite &[worm] &Worm`
+2023-05-05 05:13:14,913 - INFO - :irc.defineya.com 366 EliteBot #EliteBot :End of /NAMES list.

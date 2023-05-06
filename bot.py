@@ -8,6 +8,7 @@ import time
 import base64
 import logging
 import sys
+import signal
 from os import path
 
 def load_config(config_file):
@@ -188,19 +189,19 @@ def main(config):
                     channel = ircmsg.split(' ')[2]  # Use the channel the command was sent in
                 ircsend(f'PART {channel}')
                 remove_channel(channel)
-                
+
+            if ircmsg.find(f':!restart') != -1:
+                ircsend(f'QUIT :Restarting...')
+                connected = False
+                ircsock.close()
+                os.execv(sys.executable, ['python'] + sys.argv)
+            
             if ircmsg.find(f':!restart') != -1:
                 ircsend(f'QUIT :Restarting...')
                 connected = False
                 time.sleep(2)
                 os.execv(sys.executable, ["python"] + sys.argv)
 
-        except Exception as e:
-            logging.exception("Unexpected error occurred: %s", e)
-            connected = False
-        except BrokenPipeError as e:
-            logging.error("Broken pipe error: %s", e)
-            connected = False
         except Exception as e:
             logging.exception("Unexpected error occurred: %s", e)
             connected = False

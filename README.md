@@ -23,7 +23,9 @@ To run the bot, simply execute the script with `python3 irc_bot.py`. The bot wil
 
 The following commands are recognized by the bot:
 
-- `!quit`: causes the bot to quit
+- `!quit`: causes the bot to quit.
+- `!join`: makes the bot join the specified channel.
+- `!part`: makes the bot part the specified channel, or if not specified, the current channel.
 
 ## Saving Channels
 

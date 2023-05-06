@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 
 import json
 import os
@@ -7,6 +7,8 @@ import socket
 import time
 import base64
 import logging
+import sys
+import signal
 from os import path
 
 def load_config(config_file):
@@ -22,11 +24,6 @@ logging.basicConfig(level=logging.DEBUG,
                     filename='logs/elitebot.log',
                     filemode='w',
                     format='%(asctime)s - %(levelname)s - %(message)s')
-console = logging.StreamHandler()
-console.setLevel(logging.DEBUG)
-formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
-console.setFormatter(formatter)
-logging.getLogger('').addHandler(console)
 
 def decode(bytes):
     try: 
@@ -48,7 +45,7 @@ def ircsend(msg):
 def connect(config):
     global ircsock
     global connected
-
+    
     ircsock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     ircsock.settimeout(240)
 
@@ -68,14 +65,15 @@ def connect(config):
     if config['UseSASL']:
        ircsend('CAP REQ :sasl')
 
-def join_saved_channels():
+def join_saved_channels(config):
     logging.debug("Joining saved channels")
     
     channels = load_channels()
     
     for channel in channels:
         ircsend(f'JOIN {channel}')
-        print(f'JOIN {channel}')
+        if config['ConsoleLogging']:
+            print(f'JOIN {channel}')
 
 def save_channel(channel):
     logging.debug("Saving channel: %s", channel)
@@ -117,6 +115,13 @@ def load_channels():
 def main(config):
     global connected
 
+    if config.get("ConsoleLogging", False):
+        console = logging.StreamHandler()
+        console.setLevel(logging.DEBUG)
+        formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
+        console.setFormatter(formatter)
+        logging.getLogger('').addHandler(console)
+        
     while True:
         if not connected:
             try:
@@ -165,28 +170,38 @@ def main(config):
                 save_channel(channel)
 
             if ircmsg.find(f' 001 {config["BNICK"]} :') != -1:
-                join_saved_channels()
+                join_saved_channels(config)
 
             if ircmsg.find(f':!moo') != -1:
                 channel = ircmsg.split(' ')[2]
                 ircsend(f'PRIVMSG {channel} :moo')
 
-            if ircmsg.find(f':!join') != -1:
-                channel = ircmsg.split(' ')[2]
+            if ircmsg.find(f':!join ') != -1:  # Add a space after the !join command
+                channel = ircmsg.split(' ')[4]  # Change the index to 4 to get the channel name
                 ircsend(f'JOIN {channel}')
                 save_channel(channel)
 
             if ircmsg.find(f':!part') != -1:
-                channel = ircmsg.split(' ')[2]
+                parts = ircmsg.split(' ')
+                if len(parts) >= 4:  # If the command has a channel name
+                    channel = parts[4]  # Change the index to 4 to get the channel name
+                else:  # If the command does not have a channel name
+                    channel = ircmsg.split(' ')[2]  # Use the channel the command was sent in
                 ircsend(f'PART {channel}')
                 remove_channel(channel)
 
-        except Exception as e:
-            logging.exception("Unexpected error occurred: %s", e)
-            connected = False
-        except BrokenPipeError as e:
-            logging.error("Broken pipe error: %s", e)
-            connected = False
+            if ircmsg.find(f':!restart') != -1:
+                ircsend(f'QUIT :Restarting...')
+                connected = False
+                ircsock.close()
+                os.execv(sys.executable, ['python'] + sys.argv)
+            
+            if ircmsg.find(f':!restart') != -1:
+                ircsend(f'QUIT :Restarting...')
+                connected = False
+                time.sleep(2)
+                os.execv(sys.executable, ["python"] + sys.argv)
+
         except Exception as e:
             logging.exception("Unexpected error occurred: %s", e)
             connected = False

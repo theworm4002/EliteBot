@@ -7,5 +7,6 @@
     "BBINDHOST": "0.0.0.0",
     "UseSASL": false,
     "SANICK": "SASL-Username",
-    "SAPASS": "SASL-Password"
+    "SAPASS": "SASL-Password",
+    "ConsoleLogging": true
 }

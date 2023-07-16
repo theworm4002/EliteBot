@@ -1,19 +1,17 @@
-#!/usr/bin/env python3
-
 import sys
-import bot
+from src.bot import Bot
 
 def main():
     if len(sys.argv) < 2:
-        print("Usage: ./elitebot.py <config_file>")
+        print("Usage: python elitebot.py <config_file>")
         sys.exit(1)
 
     config_file = sys.argv[1]
-    config = bot.load_config(config_file)
+    bot = Bot(config_file)
 
     try:
         print("EliteBot started successfully!")
-        bot.main(config)
+        bot.start()  
     except Exception as e:
         print(f"Error starting EliteBot: {e}")
 

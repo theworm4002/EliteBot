@@ -1,13 +1,20 @@
+import os
 import sys
-from src.bot import Bot
+from src import *
 
 def main():
-    if len(sys.argv) < 2:
-        print("Usage: python elitebot.py <config_file>")
-        sys.exit(1)
+    #  Getting current Dir
+    exePath =  os.path.dirname(os.path.abspath(__file__))
 
-    config_file = sys.argv[1]
-    bot = Bot(config_file)
+    # ConfFile
+    config_file = f'{exePath}/config.json'
+
+    # Setup logger 
+    logFile =  f'{exePath}/logs/elitebot.log'
+    logTool = Logger(logFile)    
+    
+    # Run the bot
+    bot = Bot(config_file, ChannelManager, logTool)
 
     try:
         print("EliteBot started successfully!")

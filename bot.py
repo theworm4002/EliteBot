@@ -171,6 +171,11 @@ def main(config):
 
             if command == '001':
                 join_saved_channels(config)
+                
+            if command == 'INVITE':
+                channel = args[1]
+                ircsend(f'join {channel}')
+                print(f'JOIN {channel}')
 
         except Exception as e:
             logger.error(f"Error: {e}")

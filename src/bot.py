@@ -1,16 +1,14 @@
-import socket
 import ssl
 import time
 import json
 import base64
-from src.channel_manager import ChannelManager
-from src.logger import Logger
+import socket
 
 class Bot:
-    def __init__(self, config_file):
-        self.config = self._load_config(config_file)
-        self.channel_manager = ChannelManager()
-        self.logger = Logger('logs/elitebot.log')
+    def __init__(self, config_file, ChannelManager, Logger):
+        self.config = self._load_config(config_file)        
+        self.channel_manager = ChannelManager
+        self.logger = Logger
         self.connected = False
         self.ircsock = None
 

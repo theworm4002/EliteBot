@@ -12,9 +12,11 @@ def main():
     # Setup logger 
     logFile =  f'{exePath}/logs/elitebot.log'
     logTool = Logger(logFile)    
+
+    chMang = ChannelManager()
     
     # Run the bot
-    bot = Bot(config_file, ChannelManager, logTool)
+    bot = Bot(config_file, chMang, logTool)
 
     try:
         print("EliteBot started successfully!")
